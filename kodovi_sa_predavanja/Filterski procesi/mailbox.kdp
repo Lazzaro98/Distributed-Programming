@@ -1,0 +1,16 @@
+
+
+chan input(char), output(char [MAXLINE]);
+
+process Char_to_Line {
+    char line[MAXLINE]; int i = 0;
+    while (true) { 
+        receive input(line[i]);
+        while (line[i] != CR and i < MAXLINE-1) {
+            i = i + 1; 
+            receive input(line[i]); 
+        }
+    line[i] = EOL; 
+    send output(line); i = 0; 
+    }
+}

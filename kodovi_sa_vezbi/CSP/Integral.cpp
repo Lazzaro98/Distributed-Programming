@@ -1,5 +1,5 @@
 //bag of tasks
-
+// primer principa torbe poslova
 [Node(p : 1..n) :: NODE || Bag::BAG]
 
 NODE::[ left, right, data : double; // dohvata granice integrala, i vraca rezultat koji izracuna
@@ -21,7 +21,7 @@ BAG:: [Xmin, Xmax, dx, x, F:double; F:=0;
         []
         i<N; (j:1..n) Node(j)? putResult(data) -> [
             F := F + data;
-            i := i +1
+            i := i + 1
         ]
     ]
     STOP;

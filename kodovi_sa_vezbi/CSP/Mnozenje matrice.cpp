@@ -1,5 +1,5 @@
 // mnozenje matrice
-
+// primer rada sistolicke obrada
 [M(i:1..3, 0)::WEST || M (0, j:1..3)::NORTH || M (i:1..3, 4)::EAST || M(4, j:1..3)::SOUTH || M(i:1..3, j:1..3)::CENTER]
 
 NORTH:: *[
