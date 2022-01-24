@@ -1,0 +1,17 @@
+chan request(int clientID, types of input values);
+
+chan reply[n] (types of results);
+
+process Server { 
+    int clientID;  
+    while (true) { 
+        receive request(clientID, input_variables);
+        results = f(input_variables, permanent_variables);
+        send reply[clientID] (results);
+    }
+}
+
+process Client[i = 0 to n-1] {
+    send request(i, value arguments);
+    receive reply[i] (result arguments); 
+}

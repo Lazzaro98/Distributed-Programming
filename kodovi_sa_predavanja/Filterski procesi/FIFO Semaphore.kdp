@@ -1,0 +1,39 @@
+monitor FIFOsemaphore
+{
+    int s = 0; /* ili druga inicijalna vrednost */
+    cond pos; /* signal kada bi trebalo s > 0 */
+    
+    procedure semWait() {
+        if (s == 0) wait(pos);
+        else s := s-1; 
+    }
+
+    procedure semSignal() {
+        if (empty(pos)) s:= s + 1;
+        else signal(pos); 
+    }
+}
+
+process SemaphoreServer { 
+
+    int clientID;
+    op_kind kind;
+    result_type results;
+    int s = 0;
+    queue pending; // inicijalno prazno
+
+    while (true) { 
+        receive request(clientID, kind);
+        if (kind == semWait){
+            if (s == 0) add(pending, clientID);
+            else s := s-1;
+        }
+        else if (kind == semSignal){
+            if (empty(pending)) s:= s + 1;
+            else{
+                remove (pending, clientID);
+                send reply[clientID](results); //token
+            }
+        }
+    }
+}

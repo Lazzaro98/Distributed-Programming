@@ -1,0 +1,25 @@
+process Server { 
+    int clientID;
+    op_kind kind;
+    arg_type args; 
+    result_type results;
+    permanent variables;
+    initialization code;
+
+
+    while (true) { 
+        receive request(clientID, kind, args);
+        switch(kind){
+            case op1: {body of op1; }
+            case opn: {body of opn; } 
+        }
+    send reply[clientID] (results);
+}
+
+process Client[i = 0 to n-1] {
+    arg_type myargs;
+    result_type myresults;
+    set value arguments in myargs;  
+    send request(i, opj, myargs);
+    receive reply[i] (myresults);
+}
